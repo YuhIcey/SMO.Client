@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Steamworks.NET" Version="2024.8.0" />
+    <PackageReference Include="Lidgren.Network" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="steam_appid.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="CopySteamAPI" AfterTargets="Build">
+    <Copy SourceFiles="lib\steam_api64.dll" 
+          DestinationFolder="$(OutDir)" 
+          SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

@@ -1,0 +1,140 @@
+﻿<Window x:Class="SMOClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SMOClient"
+        mc:Ignorable="d"
+        Title="RobCo Server Browser" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#0F1A0F">
+    <Window.Resources>
+        <Style x:Key="RobCoButton" TargetType="Button">
+            <Setter Property="Background" Value="#2FFF2F"/>
+            <Setter Property="Foreground" Value="#0F1A0F"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#50FF50"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#50FF50"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#1FFF1F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RobCoDataGrid" TargetType="DataGrid">
+            <Setter Property="Background" Value="#1F2A1F"/>
+            <Setter Property="Foreground" Value="#A5FFA5"/>
+            <Setter Property="BorderBrush" Value="#2FFF2F"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#2FFF2F"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#2FFF2F"/>
+            <Setter Property="RowBackground" Value="#1F2A1F"/>
+            <Setter Property="AlternatingRowBackground" Value="#152515"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#2FFF2F"/>
+            <Setter Property="Foreground" Value="#0F1A0F"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="BorderBrush" Value="#50FF50"/>
+            <Setter Property="BorderThickness" Value="0,0,1,2"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#2FFF2F"/>
+                    <Setter Property="Foreground" Value="#0F1A0F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Bar with Steam Info -->
+        <Border Grid.Row="0" Background="#1F2A1F" BorderBrush="#2FFF2F" BorderThickness="0,0,0,2" Padding="15">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderBrush="#2FFF2F" BorderThickness="2" CornerRadius="3" Margin="0,0,10,0">
+                        <Image x:Name="SteamAvatar" Width="32" Height="32"/>
+                    </Border>
+                    <TextBlock x:Name="SteamUsername" Text="ROBCO INDUSTRIES TERMINAL" 
+                             VerticalAlignment="Center" Foreground="#A5FFA5" 
+                             FontFamily="Consolas" FontWeight="Bold" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="TermsButton" Content="TERMS OF SERVICE" 
+                            Style="{StaticResource RobCoButton}"
+                            Margin="0,0,10,0"
+                            Click="TermsButton_Click"/>
+                    <Button x:Name="RefreshButton" Content="SCAN NETWORK" 
+                            Style="{StaticResource RobCoButton}"
+                            Click="RefreshButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Server List -->
+        <DataGrid x:Name="ServerGrid" Grid.Row="1" 
+                  Style="{StaticResource RobCoDataGrid}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True" 
+                  SelectionMode="Single"
+                  SelectionChanged="ServerGrid_SelectionChanged"
+                  Margin="15">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="TERMINAL NAME" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="USERS" Binding="{Binding PlayerCount}" Width="100"/>
+                <DataGridTextColumn Header="CAPACITY" Binding="{Binding MaxPlayers}" Width="100"/>
+                <DataGridTextColumn Header="PROTOCOL" Binding="{Binding Protocol}" Width="120"/>
+                <DataGridTextColumn Header="VERSION" Binding="{Binding Version}" Width="100"/>
+                <DataGridTextColumn Header="LATENCY" Binding="{Binding Latency}" Width="100"/>
+                <DataGridTextColumn Header="STATUS" Binding="{Binding Status}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="#1F2A1F" BorderBrush="#2FFF2F" BorderThickness="0,2,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="StatusText" Text="SYSTEM READY" Foreground="#A5FFA5" 
+                          FontFamily="Consolas" Padding="15,8" FontWeight="Bold"/>
+                <Button x:Name="ConnectButton" Content="CONNECT" Grid.Column="1"
+                        Style="{StaticResource RobCoButton}" Margin="10,5" IsEnabled="False"
+                        Click="ConnectButton_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

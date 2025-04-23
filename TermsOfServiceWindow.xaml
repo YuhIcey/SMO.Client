@@ -1,0 +1,155 @@
+<Window x:Class="SMOClient.TermsOfServiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sierra Madre Online - Terms of Service" 
+        Height="700" Width="800"
+        WindowStartupLocation="CenterOwner"
+        Background="#0F1A0F">
+    <Window.Resources>
+        <Style x:Key="RobCoButton" TargetType="Button">
+            <Setter Property="Background" Value="#2FFF2F"/>
+            <Setter Property="Foreground" Value="#0F1A0F"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#50FF50"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#50FF50"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#1FFF1F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0" Margin="15" 
+                      Background="#1F2A1F" 
+                      BorderBrush="#2FFF2F" 
+                      BorderThickness="2">
+            <RichTextBox x:Name="TermsText" 
+                      Margin="15"
+                      Foreground="#A5FFA5"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      IsReadOnly="True"
+                      FontFamily="Consolas">
+                <FlowDocument>
+                    <Paragraph>Sierra Madre Online – Terms of Service
+Last Updated: April 2025
+
+Welcome to Sierra Madre Online ("SMO"), a fan-made multiplayer modification built on Fallout: New Vegas. By accessing or using SMO, you agree to abide by the following Terms of Service. If you do not agree, do not use the service.
+
+---
+
+1. Eligibility
+- You must own a legal copy of Fallout: New Vegas.
+- You must be at least 13 years old (or meet your country's digital age of consent).
+- You must follow the Code of Conduct and all server-specific rules.
+
+---
+
+2. User Content
+- You are responsible for your in-game behavior, chat, and any content tied to your account.
+- Admins may monitor gameplay and logs.
+- Offensive or abusive behavior can result in bans.
+- You retain rights to your creations, but grant SMO permission to display them in-game.
+
+---
+
+3. Server Access
+- SMO is decentralized. Servers ("Relay Nodes") are hosted by the community.
+- Rules, mods, and data may differ between servers.
+- Server uptime and character persistence are not guaranteed.
+
+---
+
+4. Fair Use &amp; Anti-Cheat
+Cheating and exploiting are not tolerated. This includes:
+- Memory editing or unauthorized mods
+- Duplication glitches
+- Scripting or automation tools
+- Packet tampering
+
+Violators may be banned from all SMO services.
+
+---
+
+5. Premium Services &amp; Donations
+- Optional cosmetic rewards may be available through donations or subscriptions.
+- These will never include combat advantages or gameplay-altering perks.
+- Donations are non-refundable and not transferable between servers unless stated.
+
+---
+
+6. Modification Disclaimer
+- SMO is a fan-made, unofficial project.
+- It is not affiliated with Bethesda, Obsidian, or ZeniMax.
+- All Fallout assets are owned by their respective companies.
+
+---
+
+7. Liability
+- SMO is provided as-is, with no guarantees.
+- We are not responsible for:
+  - Lost data
+  - Server issues
+  - Player behavior
+  - Third-party content
+
+Use at your own risk.
+
+---
+
+8. Updates
+- Terms may change as development continues.
+- Updates will be posted publicly.
+- Continued use of SMO means you accept the current version of these terms.
+
+---
+
+9. Contact
+To report issues, appeal a ban, or ask a question:
+Email: sierramadreonline@yandex.com
+Discord: Use the appropriate support channel
+
+---
+
+"The Sierra Madre is not just a place. It's a state of mind. Don't ruin it for everyone else." – Overseer Message #38</Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="15">
+            <Button Content="ACCEPT" 
+                    Style="{StaticResource RobCoButton}" 
+                    Click="AcceptButton_Click" 
+                    Margin="0,0,10,0"/>
+            <Button Content="DECLINE" 
+                    Style="{StaticResource RobCoButton}" 
+                    Click="DeclineButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window> 
