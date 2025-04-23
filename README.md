@@ -1,2 +1,5 @@
 # SMO.Client
-The Client For SMO
+
+
+
+GNU License 
